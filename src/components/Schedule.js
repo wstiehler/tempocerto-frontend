@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Paper from '@mui/material/Paper';
 import { ViewState, GroupingState, IntegratedGrouping, IntegratedEditing, EditingState } from '@devexpress/dx-react-scheduler';
 import { Scheduler, Resources, Appointments, AppointmentTooltip, GroupingPanel, DayView, WeekView, MonthView, DragDropProvider, AppointmentForm, Toolbar, DateNavigator, TodayButton } from '@devexpress/dx-react-scheduler-material-ui';
-import { getLocations } from '../hooks/api';
+import { getLocations } from '../hooks/fake-api';
 import { useFetchSchedules } from '../hooks/use-fetch-schedules';
 
 
