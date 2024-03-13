@@ -1,34 +1,39 @@
-# Teste de front-end TempoCerto
+# tempocerto-backend
+This project aims to view various schedules in the screen.
 
-Este teste busca avaliar quesitos técnicos para as pessoas que se candidatem às vagas de desenvolvimento front-end da TempoCerto.
+## Execution Guide
 
-## O desafio
+To run this code, you need to have Makefile and Docker installed on your system.
+***You must have ports free to run the APIs***
 
-O objetivo é criar uma Single Page Application seguindo o layout a baixo:
-![Isso é uma imagem](./layout.png)
+* 3000 (application), 
+* 8080(tempocerto-api)
 
+### Steps for Execution
 
-## O que sua aplicação deverá fazer
+1. Clone this repository to your local machine.
 
-- Listar agendas dentro do grid Horários X Docas
+2. In the terminal, navigate to the project root directory.
 
-### Sobre o layout
+3. Run the backend application
 
-- A interface deve ficar o mais fiel possivel do layout disponibilizado.
+4. Import postman file (postman_collection.json) contains in this project and create the company(/v1/company), slots(v1/daily-slots) and after update the schedule(v1/schedule) with informations requirements. Afther step, will possible to view your schedules in the frontend.
 
-## O que será avaliado
+5. Run the following command to launch the application:
 
-- Arquitetura
-- Criação de componentes
-- Reaproveitamento de código
-- Código limpo e organizado (nomenclatura, etc)
-- Utilização correta de git
-- README.md bem escrito, curto e com os comandos necessários para rodar a aplicação, bastando copiar/colar no terminal.
+```bash
+   make start-docker-app
+```
 
-
-## Requisitos
-
-- [ReactJS](https://pt-br.reactjs.org/)
-- [Material-UI](https://mui.com/pt/material-ui/getting-started/installation/)
+After executing the above command, the application will be accessible at [http://localhost:3000](http://localhost:3000).
 
 
+***To use the backend application methods, follow the instructions below:***
+
+1. Open the Postman.
+   
+2. Import the provided request collection file (postman_collection.json).
+
+3. [Link to insominia documentation and step by step to run](https://documenter.getpostman.com/view/31816718/2sA2xjyqTE)
+
+![Isso é uma imagem](./layoutapp.png)
