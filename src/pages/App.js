@@ -5,7 +5,7 @@ import Schedule from '../components/Schedule';
 
 function App() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [data, setData] = useState([]);
+  const [setData] = useState([]);
 
   const handleDateChange = (date) => {
     setCurrentDate(date); 

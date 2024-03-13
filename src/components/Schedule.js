@@ -2,27 +2,38 @@ import React, { useState, useEffect } from 'react';
 import Paper from '@mui/material/Paper';
 import { ViewState, GroupingState, IntegratedGrouping, IntegratedEditing, EditingState } from '@devexpress/dx-react-scheduler';
 import { Scheduler, Resources, Appointments, AppointmentTooltip, GroupingPanel, DayView, WeekView, MonthView, DragDropProvider, AppointmentForm, Toolbar, DateNavigator, TodayButton } from '@devexpress/dx-react-scheduler-material-ui';
-import { getAppointments, getLocations } from '../hooks/api';
+import { getLocations } from '../hooks/api';
+import { useFetchSchedules } from '../hooks/use-fetch-schedules';
+
 
 
 const Schedule = (props) => {
+  const { data: fetchedData, isLoading, isError } = useFetchSchedules();
   const [data, setData] = useState([]);
-  const [currentView, setCurrentView] = useState('day');
+  const [currentView] = useState('day');
   const [currentDate, setCurrentDate] = useState(new Date());
 
   useEffect(() => {
-    getAppointments()
-      .then(appointments => {
-        const modifiedAppointments = appointments.map(appointment => ({
-          ...appointment,
-          startDate: new Date(appointment.startDate.getFullYear(), appointment.startDate.getMonth() - 1, appointment.startDate.getDate()),
-          endDate: new Date(appointment.endDate.getFullYear(), appointment.endDate.getMonth() - 1, appointment.endDate.getDate())
-        }));
-        setData(appointments);
-        //setData(modifiedAppointments);
-      })
-      .catch(error => console.error('Error fetching appointments:', error));
-  }, []);
+    if (!isLoading && !isError) {
+      const modifiedAppointments = fetchedData.map((appointment, index) => {
+        const date = new Date(appointment.date);
+        const [startHours, startMinutes] = appointment.start.split(':').map(Number);
+        const [endHours, endMinutes] = appointment.end.split(':').map(Number);
+        const startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), startHours, startMinutes);
+        const endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), endHours, endMinutes);
+        
+        return {
+          id: index,
+          title: appointment.title,
+          locationId: 1,
+          startDate,
+          endDate,
+        };
+      });
+      setData(modifiedAppointments);
+    }
+  }, [fetchedData, isLoading, isError]);
+
 
   const handleCommitChanges = ({ added, changed, deleted }) => {
     setData((prevData) => {
@@ -48,8 +59,6 @@ const Schedule = (props) => {
     props.onDateChange(date);
   };
 
-
-
   return (
     <Paper>
       <Scheduler data={data} currentDate={currentDate}>
@@ -73,8 +82,6 @@ const Schedule = (props) => {
         <DragDropProvider />
         <DateNavigator onNavigate={handleDateChange} />
         <TodayButton />
-
-        
       </Scheduler>
     </Paper>
   );

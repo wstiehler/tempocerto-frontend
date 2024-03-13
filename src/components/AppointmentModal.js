@@ -7,7 +7,7 @@ const AddAppointmentModal = ({ isOpen, onClose, onSave }) => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [companyId, setCompanyId] = useState('');
-  const [selectedDoca, setSelectedDoca] = useState(''); // Estado para armazenar a opção selecionada
+  const [selectedDoca, setSelectedDoca] = useState('');
 
   const handleSave = () => {
     if (!title || !locationId || !startDate || !endDate || !companyId || !selectedDoca) {
@@ -21,7 +21,7 @@ const AddAppointmentModal = ({ isOpen, onClose, onSave }) => {
       startDate,
       endDate,
       companyId,
-      docaId: selectedDoca, // Usar a opção selecionada para docaId
+      docaId: selectedDoca,
     };
 
     console.log(newAppointment);
@@ -33,7 +33,7 @@ const AddAppointmentModal = ({ isOpen, onClose, onSave }) => {
     setStartDate('');
     setEndDate('');
     setCompanyId('');
-    setSelectedDoca(''); // Limpar a opção selecionada
+    setSelectedDoca('');
 
     onClose();
   };
